@@ -7,6 +7,11 @@ public class SeamCarver
 	
 	public SeamCarver(SmC_Picture pictureP)
 	{
+		if (pictureP == null)
+		{
+			throw new NullPointerException();
+		}
+		
 		p = pictureP;
 		curr = pictureP;
 	}
@@ -18,16 +23,21 @@ public class SeamCarver
 
 	public int width()
 	{
-		return p.width();
+		return curr.width();
 	}
 
 	public int height()
 	{
-		return p.height();
+		return curr.height();
 	}
 
 	public double energy(int x, int y)
 	{
+		if (x < 0 || y < 0 || x >= width() || y >= height())
+		{
+			throw new IndexOutOfBoundsException();
+		}
+		
 		if (x == 0 || y == 0 || x == width() - 1 || y == height() - 1)
 		{
 			return 1000;
@@ -64,11 +74,17 @@ public class SeamCarver
 
 	public void removeHorizontalSeam(int[] a)
 	{
-		throw new UnsupportedOperationException();
+		if (a == null)
+		{
+			throw new NullPointerException();
+		}
 	}
 
 	public void removeVerticalSeam(int[] a)
 	{
-		throw new UnsupportedOperationException();
+		if (a == null)
+		{
+			throw new NullPointerException();
+		}
 	}
 }
