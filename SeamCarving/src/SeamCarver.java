@@ -142,6 +142,16 @@ public class SeamCarver
 
 	public void removeHorizontalSeam(int[] a)
 	{
+		if (width() <= 1) 
+		{
+            		throw new java.lang.IllegalArgumentException();
+        	}
+
+      		if (a.length != height()) 
+		{
+            		throw new java.lang.IllegalArgumentException();
+        	}
+		
 		if (a == null)
 		{
 			throw new NullPointerException();
@@ -167,10 +177,21 @@ public class SeamCarver
 
 	public void removeVerticalSeam(int[] a)
 	{
+		if (height() <= 1) 
+		{
+            		throw new java.lang.IllegalArgumentException();
+        	}
+
+      		if (a.length != height()) 
+		{
+            		throw new java.lang.IllegalArgumentException();
+        	}
+		
 		if (a == null)
 		{
 			throw new NullPointerException();
 		}
+		
 		BufferedImage buff = new BufferedImage(curr.width() - 1, curr.height(), BufferedImage.TYPE_INT_ARGB);
 		for (int j = 0; j < curr.height(); j++)
 		{
