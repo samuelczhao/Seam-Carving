@@ -188,6 +188,7 @@ public class SeamCarver
 			{
                 throw new java.lang.IllegalArgumentException();
             }
+			
 			 if (a[i] < a[i - 1] - 1 || a[i] > a[i - 1] + 1) 
 			 {
 	                throw new java.lang.IllegalArgumentException();
@@ -235,6 +236,7 @@ public class SeamCarver
 			{
                 throw new java.lang.IllegalArgumentException();
             }
+			
 			 if (a[i] < a[i - 1] - 1 || a[i] > a[i - 1] + 1) 
 			 {
 	                throw new java.lang.IllegalArgumentException();
