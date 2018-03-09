@@ -68,7 +68,39 @@ public class SeamCarver
 
 	public int[] findHorizontalSeam()
 	{
-		return null;
+		double[] cost = new double[curr.height()];
+		int[][] prevs = new int[curr.width()][curr.height()];
+		for (int i = 0; i < curr.width(); i++)
+		{
+			double[] tcost = new double[curr.height()];
+			int[] prev = prevs[i];
+			for (int j = 0; j < curr.width(); j++)
+			{
+				if (i == 0)
+					tcost[j] = energy(i, j);
+				else
+				{
+					int ind = Math.max(0, j - 1);
+					for (int n = ind; n <= Math.min(curr.height() - 1, j + 1); n++)
+						if (cost[n] < cost[ind])
+							ind = n;
+					tcost[j] = cost[ind] + energy(i, j);
+					prev[j] = ind;
+				}
+			}
+			cost = tcost;
+		}
+		int ind = 0;
+		for (int n = 0; n < cost.length; n++)
+			if (cost[n] < cost[ind])
+				ind = n;
+		int[] seam = new int[curr.width()];
+		seam[curr.width() - 1] = ind;
+		for (int i = curr.width() - 1; i > 0; i--)
+		{
+			seam[i - 1] = prevs[i][seam[i]];
+		}
+		return seam;
 	}
 
 	public int[] findVerticalSeam()
