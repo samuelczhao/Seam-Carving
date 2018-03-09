@@ -160,7 +160,7 @@ public class SeamCarver
 		curr = new SmC_Picture(buff);
 		for (int i = 0; i < curr.width(); i++)
 		{
-			engr[i][a[i] - 1] = energy(i, a[i] - 1);
+			engr[i][Math.max(a[i] - 1, 0)] = energy(i, Math.max(a[i] - 1, 0));
 			engr[i][a[i]] = energy(i, a[i]);
 		}
 	}
@@ -185,7 +185,7 @@ public class SeamCarver
 		curr = new SmC_Picture(buff);
 		for (int j = 0; j < curr.height(); j++)
 		{
-			engr[a[j] - 1][j] = energy(a[j] - 1, j);
+			engr[Math.max(a[j] - 1, 0)][j] = energy(Math.max(a[j] - 1, 0), j);
 			engr[a[j]][j] = energy(a[j], j);
 		}
 	}
