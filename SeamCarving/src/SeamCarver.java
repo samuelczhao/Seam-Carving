@@ -182,6 +182,14 @@ public class SeamCarver
             throw new IllegalArgumentException();
         }
 		
+		for (int i = 0; i < a.length; i++)
+		{
+			if (a[i] < 0 || a[i] >= height()) 
+			{
+                throw new java.lang.IndexOutOfBoundsException();
+            }
+		}
+		
 		BufferedImage buff = new BufferedImage(curr.width(), curr.height() - 1, BufferedImage.TYPE_INT_ARGB);
 		for (int i = 0; i < curr.width(); i++)
 		{
@@ -216,6 +224,14 @@ public class SeamCarver
 		{
             throw new IllegalArgumentException();
         }
+		
+		for (int i = 0; i < a.length; i++)
+		{
+			if (a[i] < 0 || a[i] >= width()) 
+			{
+                throw new java.lang.IndexOutOfBoundsException();
+            }
+		}
 		
 		BufferedImage buff = new BufferedImage(curr.width() - 1, curr.height(), BufferedImage.TYPE_INT_ARGB);
 		
