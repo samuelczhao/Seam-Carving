@@ -6,7 +6,7 @@ public class SeamCarver
 {
 
 	private SmC_Picture curr;
-	private BufferedImage buff;
+
 	private double[][] engr;
 
 	public SeamCarver(SmC_Picture pictureP)
@@ -146,6 +146,23 @@ public class SeamCarver
 		{
 			throw new NullPointerException();
 		}
+		BufferedImage buff = new BufferedImage(curr.width(), curr.height() - 1, BufferedImage.TYPE_INT_ARGB);
+		for (int i = 0; i < curr.width(); i++)
+		{
+			for (int j = 0; j < a[i]; j++)
+				buff.setRGB(i, j, curr.get(i, j).getRGB());
+			for (int j = a[i] + 1; j < curr.height(); j++)
+			{
+				buff.setRGB(i, j - 1, curr.get(i, j).getRGB());
+				engr[i][j - 1] = engr[i][j];
+			}
+		}
+		curr = new SmC_Picture(buff);
+		for (int i = 0; i < curr.width(); i++)
+		{
+			engr[i][a[i] - 1] = energy(i, a[i] - 1);
+			engr[i][a[i]] = energy(i, a[i]);
+		}
 	}
 
 	public void removeVerticalSeam(int[] a)
@@ -153,6 +170,23 @@ public class SeamCarver
 		if (a == null)
 		{
 			throw new NullPointerException();
+		}
+		BufferedImage buff = new BufferedImage(curr.width() - 1, curr.height(), BufferedImage.TYPE_INT_ARGB);
+		for (int j = 0; j < curr.height(); j++)
+		{
+			for (int i = 0; i < a[j]; i++)
+				buff.setRGB(i, j, curr.get(i, j).getRGB());
+			for (int i = a[j] + 1; i < curr.width(); i++)
+			{
+				buff.setRGB(i - 1, j, curr.get(i, j).getRGB());
+				engr[i - 1][j] = engr[i][j];
+			}
+		}
+		curr = new SmC_Picture(buff);
+		for (int j = 0; j < curr.height(); j++)
+		{
+			engr[a[j] - 1][j] = energy(a[j] - 1, j);
+			engr[a[j]][j] = energy(a[j], j);
 		}
 	}
 }
