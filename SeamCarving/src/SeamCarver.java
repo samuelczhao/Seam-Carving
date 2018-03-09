@@ -188,6 +188,13 @@ public class SeamCarver
 			{
                 throw new java.lang.IllegalArgumentException();
             }
+			if (i != 0) 
+			{
+				if (Math.abs(a[i] - a[i - 1]) > 1) 
+				{
+					throw new IllegalArgumentException();
+				}
+			}
 		}
 		
 		BufferedImage buff = new BufferedImage(curr.width(), curr.height() - 1, BufferedImage.TYPE_INT_ARGB);
@@ -231,6 +238,13 @@ public class SeamCarver
 			{
                 throw new java.lang.IllegalArgumentException();
             }
+			if (i != 0) 
+			{
+				if (Math.abs(a[i] - a[i - 1]) > 1) 
+				{
+					throw new IllegalArgumentException();
+				}
+			}
 		}
 		
 		BufferedImage buff = new BufferedImage(curr.width() - 1, curr.height(), BufferedImage.TYPE_INT_ARGB);
