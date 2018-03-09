@@ -74,7 +74,7 @@ public class SeamCarver
 		{
 			double[] tcost = new double[curr.height()];
 			int[] prev = prevs[i];
-			for (int j = 0; j < curr.width(); j++)
+			for (int j = 0; j < curr.height(); j++)
 			{
 				if (i == 0)
 					tcost[j] = energy(i, j);
