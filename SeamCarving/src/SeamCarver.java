@@ -70,6 +70,7 @@ public class SeamCarver
 	{
 		double[] cost = new double[curr.height()];
 		int[][] prevs = new int[curr.width()][curr.height()];
+		
 		for (int i = 0; i < curr.width(); i++)
 		{
 			double[] tcost = new double[curr.height()];
@@ -77,29 +78,44 @@ public class SeamCarver
 			for (int j = 0; j < curr.height(); j++)
 			{
 				if (i == 0)
+				{
 					tcost[j] = energy(i, j);
+				}
 				else
 				{
 					int ind = Math.max(0, j - 1);
 					for (int n = ind; n <= Math.min(curr.height() - 1, j + 1); n++)
+					{
 						if (cost[n] < cost[ind])
+						{
 							ind = n;
+						}
+					}
 					tcost[j] = cost[ind] + energy(i, j);
 					prev[j] = ind;
 				}
 			}
+			
 			cost = tcost;
 		}
+		
 		int ind = 0;
 		for (int n = 0; n < cost.length; n++)
+		{
 			if (cost[n] < cost[ind])
+			{
 				ind = n;
+			}
+		}
+	
 		int[] seam = new int[curr.width()];
 		seam[curr.width() - 1] = ind;
+		
 		for (int i = curr.width() - 1; i > 0; i--)
 		{
 			seam[i - 1] = prevs[i][seam[i]];
 		}
+		
 		return seam;
 	}
 
@@ -114,25 +130,39 @@ public class SeamCarver
 			for (int i = 0; i < curr.width(); i++)
 			{
 				if (j == 0)
+				{
 					tcost[i] = energy(i, j);
+				}
 				else
 				{
 					int ind = Math.max(0, i - 1);
 					for (int n = ind; n <= Math.min(curr.width() - 1, i + 1); n++)
+					{
 						if (cost[n] < cost[ind])
+						{
 							ind = n;
+						}
+					}
 					tcost[i] = cost[ind] + energy(i, j);
 					prev[i] = ind;
 				}
 			}
 			cost = tcost;
 		}
+		
 		int ind = 0;
-		for (int n = 0; n < cost.length; n++)
+		
+		for (int n = 0; n < cost.length; n++) 
+		{
 			if (cost[n] < cost[ind])
+			{
 				ind = n;
+			}
+		}
+		
 		int[] seam = new int[curr.height()];
 		seam[curr.height() - 1] = ind;
+		
 		for (int j = curr.height() - 1; j > 0; j--)
 		{
 			seam[j - 1] = prevs[j][seam[j]];
@@ -142,31 +172,31 @@ public class SeamCarver
 
 	public void removeHorizontalSeam(int[] a)
 	{
-		if (width() <= 1) 
-		{
-            		throw new java.lang.IllegalArgumentException();
-        	}
-
-      		if (a.length != height()) 
-		{
-            		throw new java.lang.IllegalArgumentException();
-        	}
-		
 		if (a == null)
 		{
 			throw new NullPointerException();
 		}
+		
+		if (a.length != width())
+		{
+            throw new IllegalArgumentException();
+        }
+		
 		BufferedImage buff = new BufferedImage(curr.width(), curr.height() - 1, BufferedImage.TYPE_INT_ARGB);
 		for (int i = 0; i < curr.width(); i++)
 		{
 			for (int j = 0; j < a[i]; j++)
+			{
 				buff.setRGB(i, j, curr.get(i, j).getRGB());
+			}
+			
 			for (int j = a[i] + 1; j < curr.height(); j++)
 			{
 				buff.setRGB(i, j - 1, curr.get(i, j).getRGB());
 				engr[i][j - 1] = engr[i][j];
 			}
 		}
+		
 		curr = new SmC_Picture(buff);
 		for (int i = 0; i < curr.width(); i++)
 		{
@@ -176,33 +206,33 @@ public class SeamCarver
 	}
 
 	public void removeVerticalSeam(int[] a)
-	{
-		if (height() <= 1) 
-		{
-            		throw new java.lang.IllegalArgumentException();
-        	}
-
-      		if (a.length != height()) 
-		{
-            		throw new java.lang.IllegalArgumentException();
-        	}
-		
+	{	
 		if (a == null)
 		{
 			throw new NullPointerException();
 		}
 		
+		if (a.length != height())
+		{
+            throw new IllegalArgumentException();
+        }
+		
 		BufferedImage buff = new BufferedImage(curr.width() - 1, curr.height(), BufferedImage.TYPE_INT_ARGB);
+		
 		for (int j = 0; j < curr.height(); j++)
 		{
 			for (int i = 0; i < a[j]; i++)
+			{
 				buff.setRGB(i, j, curr.get(i, j).getRGB());
+			}
+			
 			for (int i = a[j] + 1; i < curr.width(); i++)
 			{
 				buff.setRGB(i - 1, j, curr.get(i, j).getRGB());
 				engr[i - 1][j] = engr[i][j];
 			}
 		}
+		
 		curr = new SmC_Picture(buff);
 		for (int j = 0; j < curr.height(); j++)
 		{
