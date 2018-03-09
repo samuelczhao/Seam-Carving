@@ -186,7 +186,7 @@ public class SeamCarver
 		{
 			if (a[i] < 0 || a[i] >= height()) 
 			{
-                throw new java.lang.IndexOutOfBoundsException();
+                throw new java.lang.IllegalArgumentException();
             }
 		}
 		
@@ -229,7 +229,7 @@ public class SeamCarver
 		{
 			if (a[i] < 0 || a[i] >= width()) 
 			{
-                throw new java.lang.IndexOutOfBoundsException();
+                throw new java.lang.IllegalArgumentException();
             }
 		}
 		
